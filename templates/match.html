@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Recommender - Praveen Kumar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins:300,500&amp;display=swap'>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "copperplate", fantasy;
+  font-weight: 300;
+  font-size: 100%;
+    background-color: black;
+  line-height: 1.5;
+  color: #000;
+}
+@media (min-width: 32rem) {
+  body {
+    font-size: 102.5%;
+  }
+}
+@media (min-width: 54rem) {
+  body {
+    font-size: 105%;
+  }
+}
+@media (min-width: 65rem) {
+  body {
+    font-size: 107.5%;
+  }
+}
+@media (min-width: 75em) {
+  body {
+    font-size: 110%;
+  }
+}
+@media (min-width: 91rem) {
+  body {
+    font-size: 115%;
+  }
+}
+@media (min-width: 115rem) {
+  body {
+    font-size: 120%;
+  }
+}
+@media (min-width: 130rem) {
+  body {
+    font-size: 125%;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+figure {
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+
+    
+    .movie{
+        height: 220vh;
+        margin-top: 15vh;
+        margin-bottom: 15vh;
+        margin-right: 5vh;
+        margin-left: 5vh;
+        display: block;
+        background-color: white;
+        border-radius: 20px;
+        padding: 1em;
+        width: auto;
+        box-shadow: 0px -10px 80px -25px #EC591A;
+        text-align: center;
+    }
+
+    @media screen and (max-width:600px) {
+        .movie{
+            margin-top: 12vh;
+            margin-bottom: 12vh;
+        }
+}
+    table,tr,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    td{
+      padding: 10px;  
+    }
+
+</style>
+</head>
+<body>
+
+
+    <div id="moviedata" class="movie">
+
+        <h1>Tonights movie based on your input : {{ movie_names[0] }}</h1>
+        <h3> <u>Here are some others you might like</u></h3>
+        <table class="movie_table" align="center">
+            <tr>
+                <th>Movie #</th>
+                <th>Movie Title</th>
+                <th>Runtime</th>
+                <th>Popularity</th>
+                 <th>votes</th>
+            </tr>
+            <tbody class="table_body">
+             <tr>
+                 <td>1</td>
+                 <td>{{ movie_names[0] }}</td>
+                    <td>{{ movie_runtime[0] }}</td>
+                    <td>{{ movie_popularity[0] }}</td>
+                    <td>{{ movie_vote[0] }}</td>
+                </tr>
+                <tr>
+                     <td>2</td>
+                    <td>{{ movie_names[0] }}</td>
+                    <td>{{ movie_runtime[0] }}</td>
+                    <td>{{ movie_popularity[0] }}</td>
+                    <td>{{ movie_vote[0] }}</td>
+                </tr>
+                <tr>
+                     <td>3</td>
+                    <td>{{ movie_names[1] }}</td>
+                    <td>{{ movie_runtime[1] }}</td>
+                    <td>{{ movie_popularity[1] }}</td>
+                    <td>{{ movie_vote[1] }}</td>
+                </tr>
+                <tr>
+                     <td>4</td>
+                    <td>{{ movie_names[2] }}</td>
+                    <td>{{ movie_runtime[2] }}</td>
+                    <td>{{ movie_popularity[2] }}</td>
+                    <td>{{ movie_vote[2] }}</td>
+                </tr>
+                <tr>
+                     <td>5</td>
+                    <td>{{ movie_names[3] }}</td>
+                    <td>{{ movie_runtime[3] }}</td>
+                    <td>{{ movie_popularity[3] }}</td>
+                    <td>{{ movie_vote[3] }}</td>
+                </tr>
+                <tr>
+                     <td>6</td>
+                    <td>{{ movie_names[4] }}</td>
+                    <td>{{ movie_runtime[4] }}</td>
+                    <td>{{ movie_popularity[4] }}</td>
+                    <td>{{ movie_vote[4] }}</td>
+                </tr>
+                <tr>
+                     <td>7</td>
+                    <td>{{ movie_names[5] }}</td>
+                    <td>{{ movie_runtime[5] }}</td>
+                    <td>{{ movie_popularity[5] }}</td>
+                    <td>{{ movie_vote[5] }}</td>
+                </tr>
+                <tr>
+                     <td>8</td>
+                    <td>{{ movie_names[6] }}</td>
+                    <td>{{ movie_runtime[6] }}</td>
+                    <td>{{ movie_popularity[6] }}</td>
+                    <td>{{ movie_vote[6] }}</td>
+                </tr>
+                <tr>
+                     <td>9</td>
+                    <td>{{ movie_names[7] }}</td>
+                    <td>{{ movie_runtime[7] }}</td>
+                    <td>{{ movie_popularity[7] }}</td>
+                    <td>{{ movie_vote[7] }}</td>
+                </tr>
+                <tr>
+                     <td>10</td>
+                    <td>{{ movie_names[8] }}</td>
+                    <td>{{ movie_runtime[8] }}</td>
+                    <td>{{ movie_popularity[8] }}</td>
+                    <td>{{ movie_vote[8] }}</td>
+                </tr>
+                <tr>
+                     <td>11</td>
+                    <td>{{ movie_names[9] }}</td>
+                    <td>{{ movie_runtime[9] }}</td>
+                    <td>{{ movie_popularity[9] }}</td>
+                    <td>{{ movie_vote[9] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div style= "display:inline-block; width:25%";>
+    <canvas id="canvas" height="50" width="50" ></canvas>
+          </div>
+            <div style= "display:inline-block; width:25%">
+               <canvas id="canvas2" height="50" width="50" ></canvas>
+                  </div>
+        <div style= "display:inline-block; width:35%">
+    <canvas id="canvas3" height="85" width="150"></canvas>
+</div>
+
+
+<script>const ctx = document.getElementById('canvas').getContext('2d');
+         const canvas = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Movie1', 'Movie2', 'Movie3', 'Movie4', 'Movie5', 'Movie6',],
+        datasets: [{
+            label: '# of Votes',
+            data: [{{ movie_vote[0] }},{{ movie_vote[1] }},{{ movie_vote[2] }},{{ movie_vote[3] }}, {{ movie_vote[4] }},{{ movie_vote[5] }} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+<script>const ctx2 = document.getElementById('canvas2').getContext('2d');
+const canvas2 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: ['Movie1', 'Movie2', 'Movie3', 'Movie4', 'Movie5', 'Movie6'],
+        datasets: [{
+            label: ' Runtime',
+            data: [{{ movie_runtime[0] }},{{ movie_runtime[1] }},{{ movie_runtime[2] }},{{ movie_runtime[3] }}, {{ movie_runtime[4] }},{{ movie_runtime[5] }} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<script>const ctx3 = document.getElementById('canvas3').getContext('2d');
+         const canvas3 = new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: ['Movie1', 'Movie2', 'Movie3', 'Movie4', 'Movie5', 'Movie6',],
+        datasets: [{
+            label: 'Popularity Vote',
+            data: [{{ movie_popularity[0] }},{{ movie_popularity[1] }},{{ movie_popularity[2] }},{{ movie_popularity[3] }}, {{ movie_popularity[4] }},{{ movie_popularity[5] }} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+
+<script>
+    //gets table
+    var oTable = document.getElementById('moviedata');
+
+    //gets rows of table
+    var rowLength = oTable.rows.length;
+
+    //loops through rows
+    for (i = 0; i < rowLength; i++){
+
+      //gets cells of current row
+       var oCells = oTable.rows.item(i).cells;
+
+       //gets amount of cells of current row
+       var cellLength = oCells.length;
+
+       //loops through each cell in current row
+       for(var j = 0; j < cellLength; j++){
+
+              // get your cell info here
+
+              var cellVal = oCells.item(j).innerHTML;
+              alert(cellVal);
+           }
+    }
+</script>
+  </div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js'></script>
+<script src='https://cdn.js   delivr.net/npm/animejs@3.1.0/lib/anime.min.js'></script>
+
+
+</body>
+</html>
